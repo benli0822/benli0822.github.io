@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="JAVA 反射机制研究和优化点"><meta name="keywords" content="Java,性能优化"><meta name="author" content="Justilise,undefined"><meta name="copyright" content="Justilise"><title>Java Reflection Perfomence Keynotes | L'adventure de Monsieur Marron</title><link rel="shortcut icon" href="/my-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JAVA-反射机制的优化点"><span class="toc-number">1.</span> <span class="toc-text">JAVA 反射机制的优化点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JRE运行版本"><span class="toc-number">1.1.</span> <span class="toc-text">JRE运行版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ClassLoader方面"><span class="toc-number">1.1.1.</span> <span class="toc-text">ClassLoader方面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PROXY方面"><span class="toc-number">1.1.2.</span> <span class="toc-text">PROXY方面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK安全检查配置"><span class="toc-number">1.2.</span> <span class="toc-text">JDK安全检查配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#巧用方法缓存避免直接反射，慎用getMethods方法"><span class="toc-number">1.3.</span> <span class="toc-text">巧用方法缓存避免直接反射，慎用getMethods方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#调用本身的缓存"><span class="toc-number">1.3.1.</span> <span class="toc-text">调用本身的缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#程序内部的缓存"><span class="toc-number">1.3.2.</span> <span class="toc-text">程序内部的缓存</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Justilise</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">18</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">18</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">8</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container" style="background-image: url(true)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">L'adventure de Monsieur Marron</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="post-info"><div id="post-title">Java Reflection Perfomence Keynotes</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2016-12-12</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/技术总结/">技术总结</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/技术总结/后端技术/">后端技术</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="JAVA-反射机制的优化点"><a href="#JAVA-反射机制的优化点" class="headerlink" title="JAVA 反射机制的优化点"></a>JAVA 反射机制的优化点</h1><h2 id="JRE运行版本"><a href="#JRE运行版本" class="headerlink" title="JRE运行版本"></a>JRE运行版本</h2><p>JRE本身对反射编译做过很多优化。提升JRE版本可以帮助改善反射查找待反射域的时间。</p>
+<p>需要注意的是：</p>
+<h3 id="ClassLoader方面"><a href="#ClassLoader方面" class="headerlink" title="ClassLoader方面"></a>ClassLoader方面</h3><p>JRE6中在反射方面在Class类级别用了悲观锁，这样导致的问题是一旦调用Class.forName()方法，会对类进行资源竞争，所以当并发量比较高时如果在JRE6环境下执行反射，会出现比较严重的性能递减。</p>
+<p>JRE7针对JRE6出现的这个问题，将悲观锁移动进入了方法内部，不再锁定整个类，而是对拥有这个类资源的方法进行锁定，这样将资源锁分解化，以达到提高并发性能的目的。</p>
+<p>JRE8 TODO</p>
+<h3 id="PROXY方面"><a href="#PROXY方面" class="headerlink" title="PROXY方面"></a>PROXY方面</h3><h2 id="JDK安全检查配置"><a href="#JDK安全检查配置" class="headerlink" title="JDK安全检查配置"></a>JDK安全检查配置</h2><p>查询Java7的javadoc可以看到，在AccessibleObject中定义了setAccessible方法，用来配置Java语言是否根据安全检查配置执行反射。</p>
+<pre><code>java.lang.reflect Class AccessibleObject
+
+public void setAccessible(boolean flag) throws SecurityException
+</code></pre><blockquote>
+<p>Set the accessible flag for this object to the indicated boolean value.<br><strong>A value of true indicates that the reflected object should suppress Java language access checking when it is used.<br>（如果指定true的话则被反射的对象如果被用到的话应该避免进行java安全性检测）</strong><br><strong>A value of false indicates that the reflected object should enforce Java language access checks.<br>（如果指定false的话则被反射的对象应该强制进行java安全性检查）</strong></p>
+</blockquote>
+<blockquote>
+<p>First, if there is a security manager, its checkPermission method is called with a ReflectPermission(“suppressAccessChecks”) permission.</p>
+</blockquote>
+<blockquote>
+<p>A SecurityException is raised if flag is true but accessibility of this object may not be changed (for example, if this element object is a Constructor object for the class Class).</p>
+</blockquote>
+<blockquote>
+<p>A SecurityException is raised if this object is a Constructor object for the class java.lang.Class, and flag is true.</p>
+</blockquote>
+<h2 id="巧用方法缓存避免直接反射，慎用getMethods方法"><a href="#巧用方法缓存避免直接反射，慎用getMethods方法" class="headerlink" title="巧用方法缓存避免直接反射，慎用getMethods方法"></a>巧用方法缓存避免直接反射，慎用getMethods方法</h2><p>这里的getMethods方法只是一个例子，用来代指运用反射API中一切涉及到扫描编译码寻找源对象的操作。计算机系统本身的缓存机制就非常的健全，就连系统都大量使用缓存，程序设计中运用缓存是非常必要的。</p>
+<h3 id="调用本身的缓存"><a href="#调用本身的缓存" class="headerlink" title="调用本身的缓存"></a>调用本身的缓存</h3><p>比较以下代码段</p>
+<pre><code>// 无缓存的代码段
+for(int i = 0; i &lt; 100; i++) {
+    Object objectNoCached = Class.forName(RequestedObject.class);
+    objectNoCached.testMethod();
+}
+
+// 有缓存的代码段
+Object objectCached = Class.forName(RequestedObject.class);
+for(int i = 0; i &lt; 100; i++) {
+    objectCached.testMethod();
+}
+</code></pre><p>很明显的看到，上面的两段代码在执行的效率上有显著的却别：</p>
+<ol>
+<li>前一段代码的执行逻辑是执行100次循环，每次指定一个名叫做objectNoCached的对象，并且根据反射去寻找运行环境下的反射对象，新建好后返回给objectNoCached引用，之后执行testMethod()类方法。</li>
+<li>再看后一段代码， 首先执行反射，接着在objectCached已经有引用不再是null的情况下，执行100次循环，接着针对引用好的objectCached对象执行类方法testMethod()。</li>
+</ol>
+<p>分析后发现这样优化思想是可以进一步深入的。</p>
+<h3 id="程序内部的缓存"><a href="#程序内部的缓存" class="headerlink" title="程序内部的缓存"></a>程序内部的缓存</h3><p>针对调用本身的缓存，本质上是对象引用的一种缓存，那么除了赋值本身的引用缓存；其实在程序开发过程中，相对于对象引用这种无意识堆栈缓存，也可以通过程序结构进行有意识的缓存。</p>
+<p>比如以下的代码：</p>
+<pre><code>public class ReflectionInvokerUtil {
+
+    private static final Map&lt;String, Class&gt; classMap = new HashMap&lt;String, Class&gt;();
+
+    private static final Map&lt;String, Object&gt; objectMap = new HashMap&lt;String, Object&gt;();
+
+    private static final Map&lt;String, Method&gt; methodMap = new HashMap&lt;String, Method&gt;();
+
+    public static Object
+
+
+}
+</code></pre><p>References:<br><a href="https://segmentfault.com/q/1010000003004720" target="_blank" rel="noopener">java面试题：如何提高反射效率？</a><br><a href="http://baike.xsoftlab.net/view/209.html#1" target="_blank" rel="noopener">Java反射机制详解</a><br><a href="http://blog.csdn.net/huoyunshen88/article/details/12059903" target="_blank" rel="noopener">JAVA-提高反射效率</a><br><a href="http://www.cnblogs.com/RUN-TIME/p/5780447.html" target="_blank" rel="noopener">java反射机制性能优化</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Justilise</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://benli0822.github.io/2016/12/12/Java-Reflection-Perfomence-Keynotes/">https://benli0822.github.io/2016/12/12/Java-Reflection-Perfomence-Keynotes/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/性能优化/">性能优化</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2016/12/18/有关人工智能的瞎想/"><i class="fa fa-chevron-left">  </i><span>有关人工智能的瞎想</span></a></div><div class="next-post pull-right"><a href="/2016/11/28/交互式系统要点/"><span>交互式系统要</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2018 By Justilise</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script></body></html>

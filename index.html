@@ -1,0 +1,402 @@
+<!DOCTYPE html><html lang="en"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content=""><meta name="keywords" content=""><meta name="author" content="Justilise,undefined"><meta name="copyright" content="Justilise"><title>不停的进步 | L'adventure de Monsieur Marron</title><link rel="shortcut icon" href="/my-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Justilise</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">18</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">18</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">8</span></a></div></div></div><nav class="no-bg" id="nav" style="background-image: url(true)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">L'adventure de Monsieur Marron</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="site-info"><div id="site-title">L'adventure de Monsieur Marron</div><div id="site-sub-title">不停的进步</div><div id="site-social-icons"> <a class="social-icon" href="https://github.com/benli0822" target="_blank"><i class="fa fa-github"></i></a><a class="social-icon" href="https://www.linkedin.com/in/benlijin/" target="_blank"><i class="fa fa-linkedin"></i></a><a class="social-icon" href="mailto:benli0822@gmail.com" target="_blank"><i class="fa fa-envelope"></i></a></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2018/12/27/Hexo跳坑记录/">Hexo跳坑记录</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-12-27</time><div class="content"><p>Hexo这个东西是真的好多坑啊！</p>
+<h1 id="挖坑"><a href="#挖坑" class="headerlink" title="挖坑"></a>挖坑</h1><p>吐槽一句的同时也怪我自己的不专业，在过去使用hexo的过程中一味的追求高大上（Lao Zhuang Bi）。</p>
+<p>先理一理目前做的事情：</p>
+<ol>
+<li>有一个旧版本Hexo维护的Github Repo，里面放着基于Github Paging服务的个人博客。</li>
+<li>同时还有一份应该是一样的基于Coding.net Paging服务的个人博客。</li>
+<li>本地和分支上维护了一份（或者两份）local&amp;remote workspace。很有可能两者已经不同步。</li>
+<li>由于公司的安全策略（暂且叫SB Policy），导致单独分隔出了一个专门放md文件的文档Git Repo，暂时放在了没有被Policy墙的Git仓库中。</li>
+<li>还有一些乱七八糟由于瞎搞和一时兴起搞得东西，比如很有可能有好几个Remote Git仓库。</li>
+</ol>
+<p>好了，差不多先这些，光这些整理起来已经比较头疼了。</p>
+<h1 id="填坑"><a href="#填坑" class="headerlink" title="填坑"></a>填坑</h1><p>那么怎么做？首先，很诚实的说刚开始的时候是不知道自己给自己挖了这么多坑的。刚开始发现其实是因为想换个新鲜好看的主题。<br>换主题很简单啊，只要通过 <strong>下载</strong> -&gt; <strong>改配置文件</strong> -&gt; <strong>重新发布</strong> 不就好了。对刚开始我也是这么想的。</p>
+<p>结果你会发现，你的本地博客或者Paging服务上的博客会出现各种未知的问题，比如：主页是白的，大白屏！！！</p>
+<p>根绝G站广大网友们的解释，这一现象主要集中在hexo的next主题上，workaround主要是通过将source文件夹下的vendor目录更名成lib，接着执行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo generate &amp;&amp; hexo server --debug</span><br></pre></td></tr></table></figure>
+<p>然并卵。</p>
+<p>那么怎么办呢，提供以下思路：</p>
+<ol>
+<li>通过Github Issue 查问题 无解</li>
+<li>通过Hexo init重新在本地初始化一个clean的workspace</li>
+<li>对比文件</li>
+<li>重新在clean的workspace中把原来的source文件夹拷贝进来。<ul>
+<li>弊端：以前的Git仓库信息会全掉。</li>
+<li>优势：真的是重新开始。</li>
+</ul>
+</li>
+<li>运用travis和github v4 api进行CI持续集成发布 </li>
+<li>如何使用github personal access token </li>
+<li>如何配置dns指向个人域名</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><h2 id="Hexo-References"><a href="#Hexo-References" class="headerlink" title="Hexo References"></a>Hexo References</h2><ul>
+<li><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener">hexo-theme-melody</a></li>
+</ul>
+<h2 id="Github-Official-References"><a href="#Github-Official-References" class="headerlink" title="Github Official References"></a>Github Official References</h2><ul>
+<li><a href="https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/#" target="_blank" rel="noopener">Creating a personal access token for the command line</a></li>
+</ul>
+<h2 id="Other-BLogs-and-References"><a href="#Other-BLogs-and-References" class="headerlink" title="Other BLogs and References"></a>Other BLogs and References</h2><ul>
+<li><a href="https://sazzer.github.io/blog/2015/05/04/Deploying-Hexo-to-Github-Pages-with-Travis/" target="_blank" rel="noopener">Deploying Hexo to Github Pages with Travis</a></li>
+<li><a href="http://kflu.github.io/2017/01/03/2017-01-03-hexo-travis/" target="_blank" rel="noopener">Auto Deploy Hexo.io to Github Pages With Travis CI</a></li>
+<li><a href="https://lotabout.me/2016/Hexo-Auto-Deploy-to-Github/" target="_blank" rel="noopener">Hexo 自动部署到 Github</a></li>
+<li><a href="https://blog.nfz.moe/archives/hexo-auto-deploy-with-travis-ci.html" target="_blank" rel="noopener">使用 Travis CI 持续构建 Hexo</a></li>
+<li><a href="https://stackoverflow.com/questions/18935539/authenticate-with-github-using-token" target="_blank" rel="noopener">Authenticate with github using token</a></li>
+</ul>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2018/07/04/build-bpm-on-spring-boot-2/">建设基于Spring Boot 2.0 的分布式流程脚手架</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-07-04</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/技术总结/">技术总结</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/技术总结/工具技术/">工具技术</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/应用/">应用</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Spring-Boot-2-0/">Spring Boot 2.0</a></span><div class="content"><h1 id="建设基于Spring-Boot-2-0-的分布式流程脚手架"><a href="#建设基于Spring-Boot-2-0-的分布式流程脚手架" class="headerlink" title="建设基于Spring Boot 2.0 的分布式流程脚手架"></a>建设基于Spring Boot 2.0 的分布式流程脚手架</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
+<li>基于Spring Boot 2.0 结合Activiti流程引擎</li>
+<li>代码设计必须做到分布式可扩展，高并发多节点场景必须覆盖</li>
+<li>基于Docker进行开发环境部署和搭建，必须实现自动化部署</li>
+<li>项目管理依赖用Gradle实现</li>
+<li>结合Spring-cloud新特性扩大程序设计，包括熔断，分流和监控</li>
+<li>代码必须全英文注释覆盖</li>
+</ol>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ol>
+<li>Spring-boot 和 Activiti-Spring-boot之间的选择</li>
+</ol>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2018/07/01/maven-dependencies-management/">Maven 项目依赖管理剑走偏锋</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-07-01</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/技术总结/">技术总结</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/技术总结/工具技术/">工具技术</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/应用/">应用</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/依赖管理/">依赖管理</a></span><div class="content"><h1 id="Maven-项目依赖管理剑走偏锋"><a href="#Maven-项目依赖管理剑走偏锋" class="headerlink" title="Maven 项目依赖管理剑走偏锋"></a>Maven 项目依赖管理剑走偏锋</h1><h2 id="分析需求"><a href="#分析需求" class="headerlink" title="分析需求"></a>分析需求</h2><p>现在的Java项目越来越复杂，如果采取一个简单的单POM为父节点的项目搭建方式，很有可能在项目逐渐迭代的过程中遇到很多问题，比如：</p>
+<ol>
+<li>重复的依赖引入</li>
+<li>依赖版本之间的不兼容</li>
+<li>多余的依赖注入</li>
+<li>结构不清晰，导致打包出来的项目交付包冗余不堪</li>
+<li>打包版本上下前后不一致，出现未知错误</li>
+<li>父类的强依赖约束导致子项目改写依赖限制重重</li>
+<li>…</li>
+</ol>
+<p>为了解决这个问题，期望做到的事情如下：</p>
+<ol>
+<li>保证依赖的一致性，单一性和可复用性</li>
+<li>统一管理依赖，引入的依赖保证子项目可见可用并且不会导致由于统一管理后产生变更而导致子项目的连带问题</li>
+<li>清晰的项目结构，保证子项目的依赖代码简洁明了，冗余部分通过父类抽象</li>
+<li>解耦，保证子项目的变更灵活性</li>
+</ol>
+<h2 id="创建一个空的Maven项目"><a href="#创建一个空的Maven项目" class="headerlink" title="创建一个空的Maven项目"></a>创建一个空的Maven项目</h2><p>如果想要通过Maven来搭建项目，第一步会是通过maven来初始化一个项目。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Open your teminal at the destination folder</span></span><br><span class="line">mkdir mdme</span><br><span class="line"><span class="built_in">cd</span> mdme</span><br><span class="line">mvn -B archetype:generate \</span><br><span class="line">    -DarchetypeGroupId=org.apache.maven.archetypes \</span><br><span class="line">    -DgroupId=com.benli0822.mdme \</span><br><span class="line">    -DartifactId=maven-denpendencies-management-example \</span><br><span class="line">    -Dversion=1.0.0-SNAPSHOT</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> mdme</span><br><span class="line"><span class="built_in">cd</span> mdme</span><br><span class="line">mvn -B archetype:generate </span><br><span class="line">    -DarchetypeGroupId=org.apache.maven.archetypes </span><br><span class="line">    -DgroupId=com.benli0822.mdme </span><br><span class="line">    -DartifactId=maven-denpendencies-management-example </span><br><span class="line">    -Dversion=<span class="number">1</span>.<span class="number">0</span>.<span class="number">0</span>-SNAPSHOT</span><br></pre></td></tr></table></figure>
+<p>如果说执行完上面的命令之后，应该可以在mdme目录下拥有一个名为’’的项目，并且通过命令行可以查看到项目的文件部署结构</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Projects/mdme/maven-denpendencies-management-example</span><br><span class="line">▶ tree</span><br><span class="line">.</span><br><span class="line">|____pom.xml</span><br><span class="line">|____src</span><br><span class="line">| |____test</span><br><span class="line">| | |____java</span><br><span class="line">| | | |____com</span><br><span class="line">| | | | |____benli0822</span><br><span class="line">| | | | | |____mdme</span><br><span class="line">| | | | | | |____AppTest.java</span><br><span class="line">| |____main</span><br><span class="line">| | |____java</span><br><span class="line">| | | |____com</span><br><span class="line">| | | | |____benli0822</span><br><span class="line">| | | | | |____mdme</span><br><span class="line">| | | | | | |____App.java</span><br></pre></td></tr></table></figure>
+<p>这是一个传统的单节点Maven管理的项目，显然是不符合我们的要求的。</p>
+<blockquote>
+<p>请注意，这里采用了Maven Archetypes快速创建项目，也可以通过其他IDE工具创建空的Maven项目。</p>
+</blockquote>
+<p>这里我们不讨论单一POM的项目，所以当前文件夹mdme下通过Maven生成的src文件夹可以删除。此时我们先将mdme下的pom.xml视作项目的父节点。</p>
+<blockquote>
+<p>请注意，这里讨论的场景不考虑单节点类型的项目构建，因此父节点pom.xml的打包方式需要注明为pom形式。</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.benli0822.mdme<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-denpendencies-management-example<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>**pom**<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建依赖注入管理子模块"><a href="#创建依赖注入管理子模块" class="headerlink" title="创建依赖注入管理子模块"></a>创建依赖注入管理子模块</h2><p>想要保证业务项目的依赖管理简洁明了，我们不能通过传统的继承式声明创建子工程项目，因为这样带来的问题是父类中的声明会被严格继承到子项目中，比如：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">parent pom.xml</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>而在子类中：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">chlid pom.xml</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>咋一看似乎没有什么问题，似乎子类中只是简单的更改了父类中定义的junit引入依赖版本，并且不会影响打包编译。</p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2017/07/12/Tomcat源码解读1/">Tomcat源码解读1</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-07-12</time><div class="content"><h1 id="Prefix"><a href="#Prefix" class="headerlink" title="Prefix"></a>Prefix</h1><p>本文采用 <strong>Tomcat9.0.10</strong> 版本进行分析，具体下载链接传送门如下：<br><a href="https://tomcat.apache.org/download-90.cgi#9.0.10" target="_blank" rel="noopener">Download</a></p>
+<h2 id="Tomcat启动脚本"><a href="#Tomcat启动脚本" class="headerlink" title="Tomcat启动脚本"></a>Tomcat启动脚本</h2><p>解压缩好Tomcat源码包后，会得到以下目录结构</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~/Projects/apache-tomcat-9.0.10-src</span><br><span class="line">▶ tree -d -L 1</span><br><span class="line">.</span><br><span class="line">├── bin</span><br><span class="line">├── conf</span><br><span class="line">├── java</span><br><span class="line">├── modules</span><br><span class="line">├── res</span><br><span class="line">├── <span class="built_in">test</span></span><br><span class="line">└── webapps</span><br><span class="line"></span><br><span class="line">7 directories</span><br></pre></td></tr></table></figure>
+<p>源码的目录结构实际上和实际可执行压缩包解压出来的目录结构是类似的，通过binary(bin)文件夹，可以很容易找到tomcat的入口脚本。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~/Projects/apache-tomcat-9.0.10-src</span><br><span class="line">▶ <span class="built_in">cd</span> bin</span><br><span class="line"></span><br><span class="line">Projects/apache-tomcat-9.0.10-src/bin</span><br><span class="line">▶ tree | grep start</span><br><span class="line">├── startup.bat</span><br><span class="line">├── startup.sh</span><br><span class="line"></span><br><span class="line">Projects/apache-tomcat-9.0.10-src/bin                                                             ⍉</span><br><span class="line">▶ tree | grep catalina</span><br><span class="line">├── catalina-tasks.xml</span><br><span class="line">├── catalina.bat</span><br><span class="line">├── catalina.sh</span><br></pre></td></tr></table></figure>
+<p>在当前目录下查找start和catalina关键字，可以找到对应平台的入口脚本和实际执行tomcat预设的脚本。</p>
+<h3 id="startup-sh-bat"><a href="#startup-sh-bat" class="headerlink" title="startup.sh/bat"></a>startup.sh/bat</h3><p>取决于环境的不同，startup文件是tomcat或者说catalina容器的入口脚本，在这个脚本中将会执行三件事情：</p>
+<ol>
+<li>检查环境变量CATALINA_HOME是否设置有效。</li>
+<li>检查catalina.sh/bat是否有效并可执行。</li>
+<li>调用并传递参数给catalina.sh/bat</li>
+</ol>
+<h3 id="catalina-sh-bat"><a href="#catalina-sh-bat" class="headerlink" title="catalina.sh/bat"></a>catalina.sh/bat</h3><p>由于catalina.bat基本都运行在windows平台上面，基本可以不需要额外的对当前的系统环境做额外的判定。这一点在catalina.sh中就有所不同，所以在开头catalina.sh会通过uname命令对OS环境再做一些判定和校验，以用来校准正确的执行指令。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> OS specific support.  <span class="variable">$var</span> _must_ be <span class="built_in">set</span> to either <span class="literal">true</span> or <span class="literal">false</span>.</span></span><br><span class="line">cygwin=false</span><br><span class="line">darwin=false</span><br><span class="line">os400=false</span><br><span class="line">hpux=false</span><br><span class="line">case "`uname`" in</span><br><span class="line">CYGWIN*) cygwin=true;;</span><br><span class="line">Darwin*) darwin=true;;</span><br><span class="line">OS400*) os400=true;;</span><br><span class="line">HP-UX*) hpux=true;;</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Setting environment variables <span class="keyword">for</span> running Catalina Server.</span></span><br></pre></td></tr></table></figure>
+<h3 id="启动Tomcat"><a href="#启动Tomcat" class="headerlink" title="启动Tomcat"></a>启动Tomcat</h3><figure class="highlight shell"><figcaption><span>catalina.sh</span></figcaption><table><tr><td class="code"><pre><span class="line">shift</span><br><span class="line">if [ "$1" = "-security" ] ; then</span><br><span class="line">  if [ $have_tty -eq 1 ]; then</span><br><span class="line">    echo "Using Security Manager"</span><br><span class="line">  fi</span><br><span class="line">  shift</span><br><span class="line">  eval exec "\"$_RUNJAVA\"" "\"$LOGGING_CONFIG\"" $LOGGING_MANAGER $JAVA_OPTS $CATALINA_OPTS \</span><br><span class="line">    -D$ENDORSED_PROP="\"$JAVA_ENDORSED_DIRS\"" \</span><br><span class="line">    -classpath "\"$CLASSPATH\"" \</span><br><span class="line">    -Djava.security.manager \</span><br><span class="line">    -Djava.security.policy=="\"$CATALINA_BASE/conf/catalina.policy\"" \</span><br><span class="line">    -Dcatalina.base="\"$CATALINA_BASE\"" \</span><br><span class="line">    -Dcatalina.home="\"$CATALINA_HOME\"" \</span><br><span class="line">    -Djava.io.tmpdir="\"$CATALINA_TMPDIR\"" \</span><br><span class="line">    org.apache.catalina.startup.Bootstrap "$@" start</span><br><span class="line">else</span><br><span class="line">  eval exec "\"$_RUNJAVA\"" "\"$LOGGING_CONFIG\"" $LOGGING_MANAGER $JAVA_OPTS $CATALINA_OPTS \</span><br><span class="line">    -D$ENDORSED_PROP="\"$JAVA_ENDORSED_DIRS\"" \</span><br><span class="line">    -classpath "\"$CLASSPATH\"" \</span><br><span class="line">    -Dcatalina.base="\"$CATALINA_BASE\"" \</span><br><span class="line">    -Dcatalina.home="\"$CATALINA_HOME\"" \</span><br><span class="line">    -Djava.io.tmpdir="\"$CATALINA_TMPDIR\"" \</span><br><span class="line">    org.apache.catalina.startup.Bootstrap "$@" start</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<p>仔细查看这一段脚本可以发现，执行命令通过org.apache.catalina.startup.Bootstrap这个类调用并启动了tomcat容器。至此脚本启动Tomcat容器的分析到此结束。</p>
+<h2 id="入口org-apache-catalina-startup-Bootstrap-java"><a href="#入口org-apache-catalina-startup-Bootstrap-java" class="headerlink" title="入口org.apache.catalina.startup.Bootstrap.java"></a>入口org.apache.catalina.startup.Bootstrap.java</h2><h3 id="static静态代码块"><a href="#static静态代码块" class="headerlink" title="static静态代码块"></a>static静态代码块</h3><p>Tomcat9中采用了静态代码块对环境变量进行初始化，这里的好处是在类初始化的过程中，执行环境就已经明确了，并且这样的过程在执行主函数之前就有且只有一次执行完成。保证main函数的执行环境是唯一的。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">// Will always be non-null</span></span><br><span class="line">        String userDir = System.getProperty(<span class="string">"user.dir"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Home first</span></span><br><span class="line">        String home = System.getProperty(Globals.CATALINA_HOME_PROP);</span><br><span class="line">        File homeFile = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (home != <span class="keyword">null</span>) &#123;</span><br><span class="line">            File f = <span class="keyword">new</span> File(home);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                homeFile = f.getCanonicalFile();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException ioe) &#123;</span><br><span class="line">                homeFile = f.getAbsoluteFile();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (homeFile == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// First fall-back. See if current directory is a bin directory</span></span><br><span class="line">            <span class="comment">// in a normal Tomcat install</span></span><br><span class="line">            File bootstrapJar = <span class="keyword">new</span> File(userDir, <span class="string">"bootstrap.jar"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (bootstrapJar.exists()) &#123;</span><br><span class="line">                File f = <span class="keyword">new</span> File(userDir, <span class="string">".."</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    homeFile = f.getCanonicalFile();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException ioe) &#123;</span><br><span class="line">                    homeFile = f.getAbsoluteFile();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (homeFile == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// Second fall-back. Use current directory</span></span><br><span class="line">            File f = <span class="keyword">new</span> File(userDir);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                homeFile = f.getCanonicalFile();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException ioe) &#123;</span><br><span class="line">                homeFile = f.getAbsoluteFile();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        catalinaHomeFile = homeFile;</span><br><span class="line">        System.setProperty(</span><br><span class="line">                Globals.CATALINA_HOME_PROP, catalinaHomeFile.getPath());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Then base</span></span><br><span class="line">        String base = System.getProperty(Globals.CATALINA_BASE_PROP);</span><br><span class="line">        <span class="keyword">if</span> (base == <span class="keyword">null</span>) &#123;</span><br><span class="line">            catalinaBaseFile = catalinaHomeFile;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            File baseFile = <span class="keyword">new</span> File(base);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                baseFile = baseFile.getCanonicalFile();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException ioe) &#123;</span><br><span class="line">                baseFile = baseFile.getAbsoluteFile();</span><br><span class="line">            &#125;</span><br><span class="line">            catalinaBaseFile = baseFile;</span><br><span class="line">        &#125;</span><br><span class="line">        System.setProperty(</span><br><span class="line">                Globals.CATALINA_BASE_PROP, catalinaBaseFile.getPath());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="main方法入口"><a href="#main方法入口" class="headerlink" title="main方法入口"></a>main方法入口</h3><p>首先确认的是Bootstrap类中维护了一个Bootstrap类型的deamon私有静态成员变量，通过main方法进行初始化。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 如果deamon未初始化</span></span><br><span class="line"><span class="keyword">if</span> (daemon == <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="comment">// Don't set daemon until init() has completed</span></span><br><span class="line">    <span class="comment">// 初始化局部变量对象bootstrap</span></span><br><span class="line">    Bootstrap bootstrap = <span class="keyword">new</span> Bootstrap();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        bootstrap.init();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">        handleThrowable(t);</span><br><span class="line">        t.printStackTrace();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 局部变量bootstrap初始化完成后指向私有静态成员变量daemon</span></span><br><span class="line">    daemon = bootstrap;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// When running as a service the call to stop will be on a new</span></span><br><span class="line">    <span class="comment">// thread so make sure the correct class loader is used to prevent</span></span><br><span class="line">    <span class="comment">// a range of class not found exceptions.</span></span><br><span class="line">    Thread.currentThread().setContextClassLoader(daemon.catalinaLoader);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>关于Context class loader （1）</p>
+</blockquote>
+<blockquote>
+<p>tomcat中大量用到了context class loader来设置线程执行的上下文环境，设置context class loader的目的是帮助当前thread明确自己class执行的环境，从而避免ClassNotFound之类的引用无效错误。</p>
+</blockquote>
+<blockquote>
+<p>一般来说，每一个线程的上下文环境加载器可以在线程创建的时候通过Thread.currentThread().setContextClassLoader()指定，默认不指定的情况下线程的上下文环境加载器通过继承父类属性完成。</p>
+</blockquote>
+<p>接下来解析main方法传递的参数列表args[]，诸如start，startd，stop，stopd等。</p>
+<h3 id="执行init-方法"><a href="#执行init-方法" class="headerlink" title="执行init()方法"></a>执行init()方法</h3><p>先整体看一下init方法的源码注释</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line">* Initialize daemon.</span><br><span class="line">*/</span><br><span class="line">public void init()</span><br><span class="line">    throws Exception</span><br><span class="line">&#123;</span><br><span class="line">    // Set Catalina path</span><br><span class="line">    ...</span><br><span class="line">    // Load our startup class and call its process() method</span><br><span class="line">    ...</span><br><span class="line">    // Set the shared extensions class loader</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以总结下来init方法总体上来说是为了初始化daemon，其中分为三步：</p>
+<ol>
+<li>指定Tomcat运行路径和绝对路径环境</li>
+<li>加载启动类和对应的ClassLoader</li>
+<li>加载扩展类对应ClassLoader</li>
+</ol>
+<p>下面开始详细的分析init方法的执行过程，首先确认catalina程序的homePath和basePath，这里需要注意的是虽然以下不同权限的方法都有声明，但是在init()方法中，只会通过私有成员方法进行。</p>
+<!-- TODO -->
+<p>Tomcat 9 里面已经开始通过静态代码块进行环境变量初始化，而不是通过init()方法进行定位了。<br><!-- TODO --></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"># Set catalina home</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCatalinaHome</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setCatalinaHome</span><span class="params">()</span></span></span><br><span class="line"><span class="function"># Set catalina base</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCatalinaBase</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setCatalinaBase</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p>这一步的作用是帮助程序定位好对应的执行路径和执行环境，用来确保加载库资源可以引用到正确的文件路径。</p>
+<p>路径配置设置好以后，initClassLoaders()方法将会执行并且初始化tomcat容器所需的classLoaders，整个Bootstrap对象中定义了三个ClassLoader成员变量</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ClassLoader commonLoader = <span class="keyword">null</span>;</span><br><span class="line">ClassLoader catalinaLoader = <span class="keyword">null</span>;</span><br><span class="line">ClassLoader sharedLoader = <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<p>commonLoader的意义很好理解，也是Bootstrap类在初始化classLoader的时候第一个会加载的classLoader，加载初始化共有的资源库。<br>如果commonLoader没有被初始化，则会通过createClassLoader(…)方法加载。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> ClassLoader <span class="title">createClassLoader</span><span class="params">(String name, ClassLoader parent)</span></span></span><br></pre></td></tr></table></figure>
+<p>这是一个抽象后的创建ClassLoader的方法，接受两个参数，一时name名称，二是父类ClassLoader的引用。通过这个方法，Catalina会对common，catalina和shared三个ClassLoader进行区分创建，并且根据catalina.properties中指定的库列表进行上下文环境和库的加载。</p>
+<p>在ClassLoaderFactory类中，定义了一下四种Repo类型，</p>
+<ul>
+<li>DIR对应着编译class目录</li>
+<li>GLOB对应包含jar文件的目录</li>
+<li>JAR对应着单个jar文件</li>
+<li>链接URL</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">enum</span> RepositoryType &#123;</span><br><span class="line">    DIR,</span><br><span class="line">    GLOB,</span><br><span class="line">    JAR,</span><br><span class="line">    URL</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在最终完成ClassLoader的创建之前，会对catalina.properties中指定的配置进行切割并根据以上判定原则循环导入。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> ClassLoaderFactory.createClassLoader(repositories, parent);</span><br></pre></td></tr></table></figure>
+<p>最后一步会通过调用ClassLoaderFactory工厂的静态创造方法加载配置目录和父类ClassLoader。在这个方法中，会对解析到的所有repo进行类型循环类型匹配和文件校验。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ClassLoader <span class="title">createClassLoader</span><span class="params">(List&lt;Repository&gt; repositories,</span></span></span><br><span class="line"><span class="function"><span class="params">                                            <span class="keyword">final</span> ClassLoader parent)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> Exception</span></span><br></pre></td></tr></table></figure>
+<p>至此ClassLoader的创建就完成了，</p>
+<p>在这一步中，ClassLoader被区分对待并且代码会通过操作文件系统来对配置文件内指定的库文件系统进行验证加载。</p>
+<p>现在我们该来聊一聊为什么在启动tomcat的类中需要定义三个ClassLoader了，ClassLoader在常见开发中并不常用，因为我们的程序一般情况下是建立在同一个ClassLaoder加载的环境下的，也就是说同一个Java程序加载的外部库配置是相同的，但是也有例外：比如说Servlet容器tomcat程序，tomcat本身也是一个Java程序，但是作为一个容器程序，必须给对程序本身的环境配置和容易的环境配置加以隔离，同时也必须保证容器内的程序是相互的沙箱关系，互相不影响，最简单的例子就是我们在tomcat中部署两个webapp，互相之间是相互独立不受影响的。</p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2017/03/23/Guava-cache的应用/">Guava cache的应用</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-03-23</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/技术总结/">技术总结</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/技术总结/工具技术/">工具技术</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/缓存/">缓存</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/应用/">应用</a></span><div class="content"><p>缓存作为一门可以显著提高系统吞吐服务能力的技术，如今已经成为了系统设计中的标配。现今缓存技术应用十分广泛，但是也经常说缓存是一把双刃剑；<br>为什么这么说呢？其实缓存技术中也分为很多种，如果按照系统构架来分类的话，如今的主流缓存技术可以算作两种：</p>
+<ol>
+<li>分布式缓存，常见的比如Redis，这种缓存通过实现隔离缓存组件作为系统中的中间件来使用，利用计算机的高速存储介质存储共享数据，通过网络手段对外提供缓存服务。</li>
+<li>本地缓存，常见的比如Gauva cache，相对于第一种分布式缓存，这种缓存的实现利用本身提供业务服务的服务器自身的空闲高速存储介质存放数据。</li>
+<li>本地和分布式兼容，常见的比如Memcache，结合前两者的实现理念，服务器之间通过网路手段交互。</li>
+</ol>
+<p>其实在操作系统的设计上，缓存的使用也是非常常见的，缓存的本质是帮助高速介质和低速介质的信息交换，从而帮助硬件更快更好的提供服务。</p>
+<p>这篇文章主要讨论本地缓存的使用，本地缓存又被称为双刃剑，而Guava cache其中一员，Guava cache是谷歌guava工具包中的一员，设计理念参考了ConcurrentHashMap，但是对比于ConcurrentHashMap，Guava cache提供了丰富的api，并且可以自动清空过期缓存，这个普通的map做不到的事情。因为这个特点，Guava cache更加的轻量级，相对比于EhCache无需任何配置，更加容易上手。</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p>那么Guava cache适合于什么场景呢？首先要明确的是Guava cache是一个轻量级的缓存，所以他能做的事情也是有限的。作为一个本地缓存，是需要牺牲一点应用服务器的内存作为代价以换来性能的提升的。所以对比应用服务器内存的牺牲，需要能够提供更大的性能提升。</p>
+<h3 id="数据不变性"><a href="#数据不变性" class="headerlink" title="数据不变性"></a>数据不变性</h3><p>这样的一个前提下，存进缓存的数据的有效性和命中率就十分的重要。打个比方，如果存进缓存中的数据经常变化，那么不仅会牺牲更多的应用服务器资源，而且也违背了本地缓存本身的初衷。所以在使用本地缓存亦或者Guava cache的时候，一定要确保存入内存的数据是万里挑一的热点数据，并且不变化，或者很少变化。这样的数据类似于：城市信息，亦或者业务不常维护变化的数据，比如身份唯一信息，商品基本数据等。</p>
+<h3 id="数据更新"><a href="#数据更新" class="headerlink" title="数据更新"></a>数据更新</h3><p>基于数据不变性的前提，实际上大多数业务场景内，数据并不是一成不变的，只能说相对的可以保证数据的时效性，业务上也可以接受一定时间内的系统缓存和实际数据的不同。传统的ConcurrentHashMap是不支持自主缓存失效的，并且在没有进行开发封装的基础上，也没有显示入口进行缓存的更新操作和删除操作。针对这个问题，Guava cache提供了很完备的解决方案，对外提供了完善的api。并且如果使用传统的ConcurrentHashMap，虽然是线程安全的，但是无法控制缓存的大小，并且很容易造成OOM。</p>
+<h2 id="实际使用"><a href="#实际使用" class="headerlink" title="实际使用"></a>实际使用</h2><p>公司项目采取了传统的db+redis的数据构架方式，虽然redis作为系统分布式缓存，但是其中也存储了很多热点数据，在高并发请求的应用场景下，redis服务器每分钟处理的命令数非常高，造成从redis中获取信息速度报警。经过分析发现，这一部分的数据本身是不常变动的数据，虽然部分的营销数据是需要做更新的，但是缓存的延迟是可以接受并且不影响业务逻辑的。故而这一部分的数据可以通过本地缓存加以管理，以牺牲部分应用服务器的内存而提高整体服务的服务能力。</p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2017/03/21/Spring-scope/">Spring scope</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-03-21</time><div class="content"><p>Spring框架的出现改变了传统J2EE开发的模式，给程序解耦和程序内对对象的生命周期管理带来了新思路。</p>
+<p>Spring框架的核心理念是IoC，inverse of control，也就是通过spring创建管理容器来管理各个服务对象所需的外部依赖，不再要求服务对象自己控制外部依赖对象的声明周期。 Spring提供了丰富的依赖注入对象的范围</p>
+<p>Spring中可配置的Scope选项</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">singleton</td>
+<td style="text-align:left">默认值，在bean定义声明时不指定scope，spring将会把代建的bean定义为单子</td>
+</tr>
+<tr>
+<td style="text-align:left">prototype</td>
+<td style="text-align:left">原型选项，spring容器会根据现在bean的定义创建任何数量的对象</td>
+</tr>
+<tr>
+<td style="text-align:left">request</td>
+<td style="text-align:left">定义兑现在一次http request中有效，有且只有在web的ApplicationContext中有效</td>
+</tr>
+<tr>
+<td style="text-align:left">session</td>
+<td style="text-align:left">定义兑现在一次http session中有效，有且只有在web的ApplicationContext中有效</td>
+</tr>
+<tr>
+<td style="text-align:left">global-session</td>
+<td style="text-align:left">定义兑现在全局http session中有效，有且只有在web的ApplicationContext中有效</td>
+</tr>
+</tbody>
+</table>
+<p>从上表中可以看出，在scope配置实际上大致分为两类，一类是与http协议相关的，也就是在请求和回话中有效，另外一种则是对对象的数量进行了约束。</p>
+<h1 id="循序渐进"><a href="#循序渐进" class="headerlink" title="循序渐进"></a>循序渐进</h1><p>要想验证scope的作用，可以通过一个简单的小项目。</p>
+<p>这里采用gradle作为项目的构建和依赖管理工具</p>
+<p>需要引入的依赖有 spring-core spring-context spring-beans logback-classic</p>
+<p>需要注意的题外话是，spring-context包默认会依赖于common-logging，但是common-logging的实现机制是在运行时才发现真正使用的日志库，并且log4j，以及jdk自带的logging都是通过这样的机制实现的。这样的好处自然是通过接口的形式，不在编译的时候依赖任何一个第三方日志实现库，但是坏处也是很明显的，如果通过动态查找的方式，通常日志组件在初始化的时候会执行以下几步：</p>
+<ol>
+<li>首先，寻找org.apache.commons.logging.LogFactory 属性配置。</li>
+<li>否则，利用JDK1.3 开始提供的service 发现机制，会扫描classpah 下的META-INF/services/org.apache.commons.logging.LogFactory文件，若找到则装载里面的配置，使用里面的配置。</li>
+<li>否则，从Classpath 里寻找commons-logging.properties ，找到则根据里面的配置加载。</li>
+<li>否则，使用默认的配置：如果能找到Log4j 则默认使用log4j 实现，如果没有则使用JDK14Logger 实现，再没有则使用commons-logging 内部提供的SimpleLog 实现。</li>
+</ol>
+<p>Slf4j的实现方式是相似的，但是理念不同的是slf4j虽然只提供针对不同日志库的简单封装，但是slf4j要求必须在静态编译的时候指定一个log库的实现类，而并非是在执行的时候去动态查找日志实现类。所以slf4j的实现方式又称为静态绑定，这里采用slf4j+logback的方式，实现本例子中的日志。</p>
+<p>要在spring中注入logback的方式是现需要去除spring-context中的common-logging依赖，再引入logback依赖。具体如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;logback-classic&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.1.7&lt;/version&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;spring-context&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">      &lt;exclusions&gt;</span><br><span class="line">          &lt;exclusion&gt;</span><br><span class="line">              &lt;groupId&gt;commons-logging&lt;/groupId&gt;</span><br><span class="line">              &lt;artifactId&gt;commons-logging&lt;/artifactId&gt;</span><br><span class="line">          &lt;/exclusion&gt;</span><br><span class="line">      &lt;/exclusions&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>管理好依赖之后就可以开始具体的代码编写的，首先创建一个简单的pojo，比如PersonPojo</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class PersonPojo implement Serializable &#123;</span><br><span class="line"></span><br><span class="line">  private String name;</span><br><span class="line"></span><br><span class="line">  private int age;</span><br><span class="line"></span><br><span class="line">  /** Getter and settter **/</span><br><span class="line"></span><br><span class="line">  /** toString() **/</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们将通过spring来创建PersonPojo对象，在配置文件夹下建立文件spring-bean.xml</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;justilise&quot; class=&quot;com.spring.PersonPojo&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;age&quot; value=&quot;25&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;name&quot; value=&quot;justilise&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>下面我们可以创建主程序了，这里通过main方法来进行验证</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Application &#123;</span><br><span class="line"></span><br><span class="line">  private staitc Logger logger = LoggerFactory.getLogger(Application.class);</span><br><span class="line"></span><br><span class="line">  public static void main(String[] args) &#123;</span><br><span class="line">    ApplicationContext context = new ClassPathXmlApplicationContext(&quot;conf/spring-bean.xml&quot;);</span><br><span class="line">    // 获取第一个实例</span><br><span class="line">    PersonPojo pojo = context.getBean(&quot;justilise&quot;, PersonPojo.class);</span><br><span class="line">    logger.info(&quot;PersonPojo detail: &#123;&#125;&quot;, new Object[]&#123;pojo&#125;);</span><br><span class="line"></span><br><span class="line">    // 获取第二个实例</span><br><span class="line">    PersonPojo pojo2 = context.getBean(&quot;justilise&quot;, PersonPojo.class);</span><br><span class="line">    logger.info(&quot;Equals validation result is &#123;&#125;&quot;, new Object[]&#123;pojo.equals(pojo2)&#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>验证程序后可以看到控制台输出<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">17.03.21 23:52:56 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/bean.xml]</span><br><span class="line">17.03.21 23:52:56 [main] INFO  c.s.benli.spring.SpringApplication - PersonPojo detail: PersonPojo&#123;age=25, name=&apos;justilise&apos;&#125;</span><br><span class="line">17.03.21 23:52:56 [main] INFO  c.s.benli.spring.SpringApplication - Equals validation result is true</span><br></pre></td></tr></table></figure></p>
+<p>至此单子配置验证成功，那么问题来了，spring是如何实现这样的对象的呢，又是如何管理这些对象的呢？</p>
+<p>这个过程可以分为两步来分析，整体来说，分为两块，对象的创建，对象的获取。</p>
+<h3 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h3><p>我们都知道对象的创建是通过new来新建的，通俗的来讲，显式对象的创建以及其生命周期是取决于创建他的引用的，一旦引用失效，对象便会在下次gc的时候被回收。可以说这样的生命周期是不可控的，针对这个问题，spring容器提出了IoC概念，通过控制bean的生命周期，将业务服务的概念具体到pojo对象中。</p>
+<h3 id="对象的获取"><a href="#对象的获取" class="headerlink" title="对象的获取"></a>对象的获取</h3><p>在这一阶段，Spring容器已经为我们创建好了符合定义的对象，并存储在了线程安全的ConcurrentHashMap中，对外的话，Spring通过jndi类似的目录名称机制允许获取bean实例对象。</p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2016/12/18/有关人工智能的瞎想/">有关人工智能的瞎想</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2016-12-18</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/技术随笔/">技术随笔</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/人工智能/">人工智能</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/大数据/">大数据</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/深度学习/">深度学习</a></span><div class="content"><p>&ensp;&ensp;&ensp;&ensp;人工智能是什么？听到这四个字我的脑海里的电影画面不是终结者，不是法国佬推崇至极的Lucy，也不是Her或者终结者，却是很简单的一部超级英雄电影：钢铁侠，其中Tony Stack的管家Jarvis。虽然看到后来也知道在电影主线中，Jarvis的意识通过无限宝石注入到了Ultron的新身体中，成为了一名新的英雄，但是Jarvis作为一名终端管家的形象，却给我更加深刻的印象。不禁反问？人工智能是否一定需要像人类一样，又或者超过我们人类，这样的智能，又如何跟人工两个字联系在一起？</p>
+<p>&ensp;&ensp;&ensp;&ensp;近几年关于人工智能的科幻电影非常多，很多都非常值得我们在这行中的人反省思考，其中的观点也无非分为三派：无限歌颂，保守期望和恐惧打压。对于新生事物，其实只要看看计算机和互联网的历史，都会发现其实我们一直保持着相同的观点和态度，早在Turing测试的年代，人们就对计算机能够理解人的思想抱着很高的期望和执着。渐渐的，高度的期望在经过时间的沉淀和累计后，慢慢的变成了横眉冷对，或者觉得是天方夜谭。所以我们有了软件工程行业，有了UI设计，通过人的设计，来给计算机明确的指令应该在什么样的时间点执行什么样的命令。早起的幻象慢慢的落地，我们也知道，UI的设计和进步，的的确确创造了很多的价值。</p>
+<p>&ensp;&ensp;&ensp;&ensp;跳出刚才说的圈子来看，其实计算机，无非是硬件，软件和数据，硬件执行软件，软件处理数据，数据存储在硬件上这个有意思的循环。近二十年的软件设计和进步，让客户端版软件走向了网页化，让网页客户端走向了移动客户端，又由移动客户端走向了移动网页客户端。然而这些UI的进步，最终在做的还是让硬件处理软件，软件处理数据，数据存储硬件这个循环。计算机的指令是明确的，来自于各位出色的软件工程师之手，他们将事情业务逻辑化，流程化，简单化，让客户最终感受到有条件的方便。</p>
+<p>&ensp;&ensp;&ensp;&ensp;那么在这样的基础上，大量的数据流向了我们的硬件，在硬件，软件，数据在三元素中，我们的工程师们主要控制着软件环节，以用来利用硬件和数据。直到现在大数据时代的来临，在大量硬件的支持下，数据量级开始阶乘倍数增加，我们的数学直觉高速我们，大量的数据可以寻找出大量的线索和规则，所以我们有了新的技术，机器学习，深度学习网络。突然发现，似乎这样的算法，可以让计算机自发的在数据中寻找到人类难以发觉的规律和逻辑，这一次，人工智能又一次卷土重来。</p>
+<p>&ensp;&ensp;&ensp;&ensp;回到最开始的问题，人工智能，是否一定需要像人类一样？我的答案是否定的，我认为人工智能不应该期望像人类一样拥有对世界和万物感性的认知，而应该拥有比人类更加逻辑化更加敏锐的理性认知。具体而言，最近火热的AlphaGo战胜围棋冠军，以及更加具有代表意义的业界出名的IBM深蓝，IBM Watson，其实都是在利用计算机的长处来证明计算机更加能够胜任理性的分析和认知；我们都知道计算机的处理结果来源于元数据，只要数据量够大，计算机在保证硬件无异常的情况下可以100%的完成指令工作；而人类的长处在哪？我们都讨厌机械性的工作，喜欢看到数据，通过直观的数据来做判断决定，进而决定下一步应该怎么做。所以我认为人工智能应该像Jarvis那样，做大量采样数据的理性分析，通过直观的表现展示给使用者进而做出更加正确的判断，人工智能应该是我们的帮手，而不是也不会成为一个独立的人格，能做感性的事情。人工智能不是高高在上的，它应该能够融入我们的生活元素中去，成为最消失的技术。</p>
+<hr>
+<p><em>记2016/12/17 参与智能商务+人工智能大会论坛有感</em></p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2016/12/12/Java-Reflection-Perfomence-Keynotes/">Java Reflection Perfomence Keynotes</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2016-12-12</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/技术总结/">技术总结</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/技术总结/后端技术/">后端技术</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/性能优化/">性能优化</a></span><div class="content"><h1 id="JAVA-反射机制的优化点"><a href="#JAVA-反射机制的优化点" class="headerlink" title="JAVA 反射机制的优化点"></a>JAVA 反射机制的优化点</h1><h2 id="JRE运行版本"><a href="#JRE运行版本" class="headerlink" title="JRE运行版本"></a>JRE运行版本</h2><p>JRE本身对反射编译做过很多优化。提升JRE版本可以帮助改善反射查找待反射域的时间。</p>
+<p>需要注意的是：</p>
+<h3 id="ClassLoader方面"><a href="#ClassLoader方面" class="headerlink" title="ClassLoader方面"></a>ClassLoader方面</h3><p>JRE6中在反射方面在Class类级别用了悲观锁，这样导致的问题是一旦调用Class.forName()方法，会对类进行资源竞争，所以当并发量比较高时如果在JRE6环境下执行反射，会出现比较严重的性能递减。</p>
+<p>JRE7针对JRE6出现的这个问题，将悲观锁移动进入了方法内部，不再锁定整个类，而是对拥有这个类资源的方法进行锁定，这样将资源锁分解化，以达到提高并发性能的目的。</p>
+<p>JRE8 TODO</p>
+<h3 id="PROXY方面"><a href="#PROXY方面" class="headerlink" title="PROXY方面"></a>PROXY方面</h3><h2 id="JDK安全检查配置"><a href="#JDK安全检查配置" class="headerlink" title="JDK安全检查配置"></a>JDK安全检查配置</h2><p>查询Java7的javadoc可以看到，在AccessibleObject中定义了setAccessible方法，用来配置Java语言是否根据安全检查配置执行反射。</p>
+<pre><code>java.lang.reflect Class AccessibleObject
+
+public void setAccessible(boolean flag) throws SecurityException
+</code></pre><blockquote>
+<p>Set the accessible flag for this object to the indicated boolean value.<br><strong>A value of true indicates that the reflected object should suppress Java language access checking when it is used.<br>（如果指定true的话则被反射的对象如果被用到的话应该避免进行java安全性检测）</strong><br><strong>A value of false indicates that the reflected object should enforce Java language access checks.<br>（如果指定false的话则被反射的对象应该强制进行java安全性检查）</strong></p>
+</blockquote>
+<blockquote>
+<p>First, if there is a security manager, its checkPermission method is called with a ReflectPermission(“suppressAccessChecks”) permission.</p>
+</blockquote>
+<blockquote>
+<p>A SecurityException is raised if flag is true but accessibility of this object may not be changed (for example, if this element object is a Constructor object for the class Class).</p>
+</blockquote>
+<blockquote>
+<p>A SecurityException is raised if this object is a Constructor object for the class java.lang.Class, and flag is true.</p>
+</blockquote>
+<h2 id="巧用方法缓存避免直接反射，慎用getMethods方法"><a href="#巧用方法缓存避免直接反射，慎用getMethods方法" class="headerlink" title="巧用方法缓存避免直接反射，慎用getMethods方法"></a>巧用方法缓存避免直接反射，慎用getMethods方法</h2><p>这里的getMethods方法只是一个例子，用来代指运用反射API中一切涉及到扫描编译码寻找源对象的操作。计算机系统本身的缓存机制就非常的健全，就连系统都大量使用缓存，程序设计中运用缓存是非常必要的。</p>
+<h3 id="调用本身的缓存"><a href="#调用本身的缓存" class="headerlink" title="调用本身的缓存"></a>调用本身的缓存</h3><p>比较以下代码段</p>
+<pre><code>// 无缓存的代码段
+for(int i = 0; i &lt; 100; i++) {
+    Object objectNoCached = Class.forName(RequestedObject.class);
+    objectNoCached.testMethod();
+}
+
+// 有缓存的代码段
+Object objectCached = Class.forName(RequestedObject.class);
+for(int i = 0; i &lt; 100; i++) {
+    objectCached.testMethod();
+}
+</code></pre><p>很明显的看到，上面的两段代码在执行的效率上有显著的却别：</p>
+<ol>
+<li>前一段代码的执行逻辑是执行100次循环，每次指定一个名叫做objectNoCached的对象，并且根据反射去寻找运行环境下的反射对象，新建好后返回给objectNoCached引用，之后执行testMethod()类方法。</li>
+<li>再看后一段代码， 首先执行反射，接着在objectCached已经有引用不再是null的情况下，执行100次循环，接着针对引用好的objectCached对象执行类方法testMethod()。</li>
+</ol>
+<p>分析后发现这样优化思想是可以进一步深入的。</p>
+<h3 id="程序内部的缓存"><a href="#程序内部的缓存" class="headerlink" title="程序内部的缓存"></a>程序内部的缓存</h3><p>针对调用本身的缓存，本质上是对象引用的一种缓存，那么除了赋值本身的引用缓存；其实在程序开发过程中，相对于对象引用这种无意识堆栈缓存，也可以通过程序结构进行有意识的缓存。</p>
+<p>比如以下的代码：</p>
+<pre><code>public class ReflectionInvokerUtil {
+
+    private static final Map&lt;String, Class&gt; classMap = new HashMap&lt;String, Class&gt;();
+
+    private static final Map&lt;String, Object&gt; objectMap = new HashMap&lt;String, Object&gt;();
+
+    private static final Map&lt;String, Method&gt; methodMap = new HashMap&lt;String, Method&gt;();
+
+    public static Object
+
+
+}
+</code></pre><p>References:<br><a href="https://segmentfault.com/q/1010000003004720" target="_blank" rel="noopener">java面试题：如何提高反射效率？</a><br><a href="http://baike.xsoftlab.net/view/209.html#1" target="_blank" rel="noopener">Java反射机制详解</a><br><a href="http://blog.csdn.net/huoyunshen88/article/details/12059903" target="_blank" rel="noopener">JAVA-提高反射效率</a><br><a href="http://www.cnblogs.com/RUN-TIME/p/5780447.html" target="_blank" rel="noopener">java反射机制性能优化</a></p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2016/11/28/交互式系统要点/">交互式系统要</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2016-11-28</time><div class="content"><p>通过接口互相同步的系统之间如何提高效率问题。</p>
+<ol>
+<li><p>接收订单的分治<br> for</p>
+<pre><code>a. 进行订单流分组，指定订单评分规则，进行阀值判定
+b. 根据分组进行再分块
+c. 对每个分块进行异步接收处理
+</code></pre><p> end for</p>
+</li>
+<li><p>同步拉取外部信息<br> for</p>
+<pre><code>a. Producer 根据时间分块拉取索引信息
+b. 索引信息入库
+c. Consumer 根据索引信息请求时间分块中的索引内容
+d. 进入1. 模块
+</code></pre><p> end for</p>
+</li>
+<li><p>补偿机制<br> 请求可以多次重试，但是多次重试失败后，时间分块内信息缺失。<br> 时间分块后很好找到到底哪一个时间块内的信息缺失，</p>
+</li>
+</ol>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2016/11/18/Java线程探究/">Java线程探究</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2016-11-18</time><div class="content"><h1 id="Prefix"><a href="#Prefix" class="headerlink" title="Prefix"></a>Prefix</h1><p>计算机的一个基础核心理念就是IO，所有的操作系统和程序都必须跟IO打交道，<br>以往的程序设计通常是建立在顺序执行的基础上进行设计进而进行考虑的，多线程，非阻塞，同步异步等概念的提出，直接改变了现有程序设计的面貌，与这些概念经常挂钩的话题主要都是高并发处理，同步协作问题等。</p>
+<p>记得以前看过一篇帖子，举的例子很贴切，再次引用来记录一下。说的是一个工厂，厂长刚开始招聘了一个人，希望能够完成一条流水线的任务，工人由于只能一个人干活，便只能一样一样来，生产效率十分低下。后来厂长发现了这个问题，又招聘了几个工人，这下生产效率确实上去了，每个工人都负责了一条流水线的任务。工厂的效益上去了，厂长很开心，但是同时苦恼的事情也随之而来，由于工厂的效率提升，接收到的订单量也大大增加，每个工人的流水线上虽然都占满了任务；但是实际上还是没办法吃的下所有的订单，所以后来来的订单只能在流水线外等待，直到任务安排到相对应的空闲流水线。厂长请了技术专家想要提升工厂的效能，技术专家根据实际场地的调研发现，并不是每个工人对流水线上所有的任务都很熟悉，相反的，有些工人对某一块技术性较强的任务很熟悉，但是对其他的并不是十分熟悉，但是有些工人却能表现出很强的流水线适应性。针对这样的情况，技术专家给出了新的解决方案，在仅有的人力资源情况下，对流水线的任务进行拆分，让熟悉技术的工人专门负责某一块的任务处理，而将适应性比较强的工人安排在管理职责上。对于比较不需要人工操作的流水任务，采取自动化管理的路线。工厂的效益日益增加，大家都很开心。</p>
+<p>我承认这样的例子很理想化，但是处处体现出多线程编程中实际操作吸取的思想。我相信并不是所有人在考虑编写程序的刚开始就考虑采用平行编程，多线程编程这样的设计思想，计算机程序刚开始还仅仅只能称作程式，它能实现的事情是线性的，也就是直线性思维的。一段程序的目的是为了简化过称，根据输入给出输出。而我们都是在遇到性能不足的问题下才提出并发展了现今的计算机构架，以至于程序设计思想。所以秉着这样的设计理念，希望通过本文对java的多线程程序设计做深入学习探究。</p>
+<h1 id="元数据的线程同步"><a href="#元数据的线程同步" class="headerlink" title="元数据的线程同步"></a>元数据的线程同步</h1><p>计算机的架构从上到下都涉及到时间和空间交换的理念，现今基本都是多核工作环境，CPU在工作的时候都有自己的工作区，同时为了保证多个CPU的协同工作一致性，CPU内也分配了一定区域的共享工作区，光说不如直接上图，对比下面两张图能看出端倪：</p>
+<blockquote>
+<blockquote>
+<p>Java中的线程工作内存模型<br><img src="http://o8wic7drl.bkt.clouddn.com/111510286.png" alt="Java中的线程工作内存模型"><br>多核CPU中的工作内存模型<br><img src="http://o8wic7drl.bkt.clouddn.com/111510287.png" alt="多核CPU中的工作内存模型"></p>
+</blockquote>
+</blockquote>
+<p>对比之后可以发现，实际上设计理念是相同的。</p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2016/11/01/数据归档中遇到的执行和校验问题/">数据归档中遇到的执行和校验问题</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2016-11-01</time><div class="content"><p>开发数据归档功能的过程中遇到了一些问题，就此记录一下：</p>
+<p>公司的生产环境是不允许通过脚本来进行数据归档的，牵涉的业务比较多，并且数据很难做校准。所以在目前的形式下主要是通过后台开发并通过程序来执行数据归档和校验的工作。以用来保证生产环境中数据的准确性和用户无感性。</p>
+<p>在这个前提下，产品线上不同的项目后台就衍生了很多计划执行任何来进行不同的操作，数据归档校验就是其中的一环，所以开发一个比较有效率并且比较安全的数据归档功能的需求，就浮出水面了。</p>
+<p>这个功能模块主要包含几个主要需求：</p>
+<ol>
+<li>可以满足数据迁移归档的基本功能，数据能正确的移走</li>
+<li>移走数据后对现有数据没有任何影响，并且现有数据时正确的</li>
+<li>计划任务是可以暂停并且恢复的，毕竟后台程序的资源也是有限的</li>
+</ol>
+<p>为了满足这几个需求，就要求在有限的环境和资源内做最大资源效率的利用。</p>
+<p>设计中针对系统目前的问题有以下几个难点：</p>
+<ol>
+<li>系统现存的表结构是基于联合主键设计的，表中联合主键是有重复的，无法通过联合主键来对数据上下文进行定位。</li>
+<li>业务数据本身存在很多关联数据，如何统一迁移这些关联数据并且做到时间精准，结果正确是一大难点。</li>
+<li>生产环境的job统一调度系统是针对单一节点的，所以在资源上局限于单机环境。</li>
+<li>方案本身需要有断点可恢复性，资源可配置性，自动降级性，以及速度可控制性。</li>
+</ol>
+<p>针对以上的需求，分析后决定采用以下的方案：</p>
+<ol>
+<li></li>
+</ol>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2016/10/27/产品交流会心得/">产品交流会心得</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2016-10-27</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/心得总结/">心得总结</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/心得总结/产品心得/">产品心得</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/交流技巧/">交流技巧</a></span><div class="content"><p>今晚参加了一个产品的交流心得会，总结一下听下来的心得。</p>
+<p>主要围绕几个问题：</p>
+<h1 id="如何在多部门之间进行任务协调和沟通"><a href="#如何在多部门之间进行任务协调和沟通" class="headerlink" title="如何在多部门之间进行任务协调和沟通"></a>如何在多部门之间进行任务协调和沟通</h1><p>这个问题其实关键就是两个词，协调和沟s通，协调就是要区分好优先级，轻重缓急，部门或者说项目组都是人的集合，做事做人都取决与人，每个人都有自己的极限和能力，当然每个部门和项目组也都有自己的能力和极限，控制好能力和极限，就能协调好工作，把复杂的问题简化成选择题，把需要做的事情通过文档和该要的语i言传达，所谓沟通，就是用最简单的语言传达最精要的想法。</p>
+<h1 id="如何与上级领导进行沟通"><a href="#如何与上级领导进行沟通" class="headerlink" title="如何与上级领导进行沟通"></a>如何与上级领导进行沟通</h1><p>自己进行的工作需要即时报备领导，每个人的看法想法角度是不同的，解决问题的权责轻重也是不一样的，作为下属，假如说遇到无法在权责中解决的问题时，应当通过了解无法解决的问题的结症的同时，做好相应的建议和解决方案，通过让上级领导了解问题的结症和目前的现况的前提下，保证上级能够通过权责解决问题。</p>
+<h1 id="如何与其他角色进行沟通"><a href="#如何与其他角色进行沟通" class="headerlink" title="如何与其他角色进行沟通"></a>如何与其他角色进行沟通</h1><p>口才是一方面，说的多自然能锻炼，基础积累还是最重要的，与不同部门的人，不同职责的人打交道，其实说到底就是与人打交道，做准备关注对方的人，站在对方角色角度想的人，沟通起来会更加切中观点，更加能够推进思想的交流，沟通的前提是双方有潜在观点的一致。</p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2016/10/27/从SocketTimeOut看问题/">从SocketTimeOut看问题</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2016-10-27</time><div class="content"><p>现今网络环境发达的开发环境，请求SocketTimeOut异常经常会遇到，到底是请求超时还是响应超时。</p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2016/10/26/Git和SVN的那些事/">Git和SVN的那些事</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2016-10-26</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/技术总结/">技术总结</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/技术总结/工具技术/">工具技术</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Git/">Git</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/SVN/">SVN</a></span><div class="content"><p>总结一下开发中实用Git和SVN的比较和心得。</p>
+<p>说到代码版本控制工具Version Control Software(CVS)，Git和SVN应该是属两大绝学神功，当然还有Mercurial，CVS，IBM RTC等等很多工具，之所以说Git和SVN是两大神功，因为他们各自在版本控制上有着独到的理解和建树。</p>
+<h1 id="SVN-和-Git"><a href="#SVN-和-Git" class="headerlink" title="SVN 和 Git"></a>SVN 和 Git</h1><p>Git中的很大一部分理念和SVN是类似的，比如本地的代码提交和远程的代码推送和拉取。很多言论会说，Git支持分布式，所以Git比SVN更加先进更加好。然而个人并不这么认为。</p>
+<p>首先，Git和SVN是完全不同的两件工具。其实两者的最大区别就在于分布式设计上。SVN的设计是集中式的（Centralized），Git的设计是分布式的（Orchestrated）。</p>
+<p>使用SVN的过程中，很多情况下SVN代码控制服务器是对开发人员透明的，也就是说普通开发人员通常情况下是无法登陆SVN代码管理服务器的。代码的提交和录取必须通过网络环境完成，如果服务器无法连接或者是当前工作机处于无网络环境下，SVN代码提交管理工作是无法进行的。</p>
+<p>使用Git的过程中，会有本地仓库和远程仓库的概念。对于Git来说，代码的提交和版本控制操作可以在本地执行。工作机器在无网络的环境下也可以正常的进行代码提交和版本控制操作。</p>
+<p>举个栗子：出差或者在火车上写代码的时候，可能Git会比SVN更加有效率。</p>
+<p>但是也请注意，这里的用词仅仅是更有效率，确实在特定的场景下，Git可能表现出更多的可扩展性和适应性。但是这里我想说的是，任何工具都不是万能的，Git和SVN都不可能一家独大。来，泡杯茶，咱们慢慢说。</p>
+<h1 id="企业老大SVN"><a href="#企业老大SVN" class="headerlink" title="企业老大SVN"></a>企业老大SVN</h1><h2 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h2><p>SVN作为集中管理代码的工具，受到中大型公司的青睐，其中的原因主要也是根据以下两点：</p>
+<ol>
+<li>代码中心化管理</li>
+<li>权限集中化分配管理</li>
+</ol>
+<p>相对与时下风生水起的git，svn有着他独到的市场，主要也是取决于他的安全性。集中式代码管理的首要特点就是必须要有中心服务器，并且中心服务器上必须具备完整的安全认证和权限分配管理机制。</p>
+<p>SVN的运行环境中很重要的一点就是网络环境；可以说，没有配置好的网络环境，SVN是无法工作的。企业中通常会通过集成SVN，VPN和防火墙以达标企业信息安全管理的要求，所以通常情况下，一个良好的虚拟局域网环境是发挥SVN中心化管理优势的前提条件。</p>
+<p>同时，SVN可以在提供的企业网络环境中和其他产品进行一些集成。很多情况下，代码管理平台需要在项目产品的生命周期中扮演非常重要的角色，所以SVN也需要通过安全的发放集权认证和其他需要交互的品台进行通信；举个栗子：SVN可以通过和Jenkins集成进行持续编译发布。</p>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><p>svn的分支管理主要是通过文件夹来进行的，一个典型的svn仓库主要是以下结构</p>
+<blockquote>
+<ul>
+<li>branches</li>
+<li>trunk</li>
+<li>tags</li>
+</ul>
+</blockquote>
+<h1 id="贡献之王Git"><a href="#贡献之王Git" class="headerlink" title="贡献之王Git"></a>贡献之王Git</h1><h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><p>git status<br>git add .<br>git commit -m “Commit Message”<br>git push origin master<br>git pull origin master<br>git sync<br>git fetch<br>git remote add origin URL<br>git remote get-url origin<br>git remote set-url origin URL<br>git checkout .<br>git checkout – .</p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2016/10/24/Maven的那些事/">Maven的那些事</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2016-10-24</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/技术总结/">技术总结</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/技术总结/工具技术/">工具技术</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Maven/">Maven</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/集成工具/">集成工具</a></span><div class="content"><p>接触和使用Maven有一段时间了，Maven可以说是Java开发的一枚利器，从早期接触到的Ant，到Maven，最后到Gradle，Maven至今成为Java开发中的主要使用工具，是凭借着它独特的魅力。</p>
+<h1 id="初识Maven"><a href="#初识Maven" class="headerlink" title="初识Maven"></a>初识Maven</h1><h2 id="Maven是什么？"><a href="#Maven是什么？" class="headerlink" title="Maven是什么？"></a>Maven是什么？</h2><p>刚开始学习Java的时候，总会碰到头疼的依赖管理问题。其实这个问题不仅仅是初学者的问题，在早期的J2EE传统项目中，还是采用者导入jar包来添加项目中需要的依赖的做法管理整个项目，这样操作起来确实是比较快，本地项目之间只需要通过存储设备互相复制粘贴即可完成开发环境的搭建，无需依赖网络。但也同时存在着依赖管理混乱，无法有效的管理依赖版本的问题。</p>
+<h2 id="Maven能做什么？"><a href="#Maven能做什么？" class="headerlink" title="Maven能做什么？"></a>Maven能做什么？</h2><p>那么解决方案就是Maven了，Maven是Apache提供的一款集成和依赖管理工具，最常用的功能就是只需要定义好pom.xml，在其中声明需要引入到项目中的依赖和版本，就可以把依赖导入的事情交给Maven而不需要通过自己操作复制粘贴来完成开发环境的搭建了。</p>
+<p>通常Maven项目的代码数据包很小，这也是区分于传统项目的一大亮点，那么可能好奇的问题就来了，Maven是如何管理我们所熟知的例如Spring，Apache common等依赖的呢。说到这里当然要讲到Maven的又一大系统：Nexus。详情见下章</p>
+<h2 id="Maven怎么用？"><a href="#Maven怎么用？" class="headerlink" title="Maven怎么用？"></a>Maven怎么用？</h2><p>Maven可以理解成Java编写的一个软件，所以在使用Maven之前，请确保需要执行Maven的机器上安装并保证PATH执行环境中有可执行有效的Java虚拟机。具体Maven的安装指南可以参考官网</p>
+<blockquote>
+<p>Maven1和Maven2由于性能问题不建议安装使用，并且M1和M2已经不再维护，默认情况下安装Maven3比较好；但是也有一些特殊项目需求Maven2管理编译，这种情况下，需要自行设置Maven执行路径。</p>
+</blockquote>
+<blockquote>
+<p>Maven3在Maven2的基础上修复了很多结构和性能上的问题，并且M3支持parallel build，编译速度上有明显的提升</p>
+</blockquote>
+<h3 id="在命令行中执行Maven"><a href="#在命令行中执行Maven" class="headerlink" title="在命令行中执行Maven"></a>在命令行中执行Maven</h3><p>命令行中执行Maven的设置需要在PATH环境变量中指定Maven安装目录下bin文件夹的路径地址。具体安装指南请参看<a href="https://maven.apache.org/install.html" target="_blank" rel="noopener">链接</a> </p>
+<p>设置成功后，可以通过在命令行中执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mvn -v</span><br></pre></td></tr></table></figure>
+<p>获取以下信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">λ mvn -v</span><br><span class="line">Apache Maven 3.5.0 (ff8f5e7444045639af65f6095c62210b5713f426; 2017-04-04T03:39:06+08:00)</span><br><span class="line">Maven home: C:\Users\%USER%\Downloads\apache-maven-3.5.0\bin\..</span><br><span class="line">Java version: 1.8.0_131, vendor: Oracle Corporation</span><br><span class="line">Java home: C:\Program Files (x86)\Java\jre1.8.0_131</span><br><span class="line">Default locale: en_GB, platform encoding: GBK</span><br><span class="line">OS name: &quot;windows 7&quot;, version: &quot;6.1&quot;, arch: &quot;x86&quot;, family: &quot;windows&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="在IDE中执行Maven"><a href="#在IDE中执行Maven" class="headerlink" title="在IDE中执行Maven"></a>在IDE中执行Maven</h3><p>Eclipse和Intellij IDEA都支持通过Preference配置Maven执行路径，需要注意的是，Standard版本的Eclipse默认不带m2e for eclipse插件，需要自行安装。</p>
+<h1 id="Maven和Nexus初探"><a href="#Maven和Nexus初探" class="headerlink" title="Maven和Nexus初探"></a>Maven和Nexus初探</h1><h2 id="Nexus是什么？"><a href="#Nexus是什么？" class="headerlink" title="Nexus是什么？"></a>Nexus是什么？</h2><p>首先需要明确的概念有两个，公服和私服。</p>
+<p>我们常说的公服也叫做公共服务器，是用来提供公有服务的，例如常用的未登陆个人账户情况下使用的Google，为每个人提供搜索查询服务。</p>
+<p>私服代指提供私人服务的服务器，不对公众提供服务，访问服务需要一定的个人权限。</p>
+<p>这里的Nexus当然不是Google发布的安卓亲儿子手机，是指的Maven的中心依赖仓库管理，很多刚解除Maven的同学可能更加熟悉另外一个词：Repository；是的，apache官方就在<a href="http://search.maven.org/" target="_blank" rel="noopener">http://search.maven.org/</a>域名下提供了The central repository查询服务以供开发者们查询自己需要的依赖。</p>
+<p>细心的同学在搜索自己喜欢的依赖的同时就会发现，页面上会有pom这个关键词链接，打开之后会链接到指定的pom文件在线路径下，这里实际上就是具体存放依赖的在线仓库（online repository），而管理这些依赖的后台系统，就叫做Nexus。Nexus通过一系列的后台管理功能，让各个组件的开发者们方便的上传自己的代码并打包，以供其他需要的开发者下载引入作为依赖。</p>
+<p>那么问题又来了，既然Apache这么牛逼可以建立自己的依赖仓库供全世界开发者使用，我们可不可以自己建一个VIP仓库呢，并且当下GFW的网络环境，链接国外的仓库下载依赖真心累。答案肯定是可以的，并且这也是目前国内外很多公司采取的方案。由于本身可以把Nexus理解成部署在服务器上的一个后台管理程序，故而部署了Nexus的服务器天生就具备着充当依赖下载代理服务的优质条件。Nexus也支持通过映射映射本机服务代理下载远程中心仓库的依赖代码，以供局域网内的其他机器映射下载使用。但是不仅如此，开源社区的发展着实壮阔的同时，商业化公司也需要通过一定的措施保护公司内部商业话的代码不暴露在公网上，所以Nexus从依赖下载的代理服务器，转而变成了一台依赖仓库的私服。这样依赖，公服中心仓库依旧提供着服务，而咱们自己的私服也小灶火旺旺，大家都得到了自己想要的东西。</p>
+<h2 id="Nexus能做什么？"><a href="#Nexus能做什么？" class="headerlink" title="Nexus能做什么？"></a>Nexus能做什么？</h2><p>Nexus的官网<a href="https://www.sonatype.com/nexus-repository-sonatype" target="_blank" rel="noopener">链接</a>，Nexus本身也是一个Java编写的工程，</p>
+<p>Nexus为公司和组织提供了便捷的Java依赖私服管理方案。通过安装Nexus提供私服服务，开发团队可以借助Nexus服务器请求并缓存公服依赖，特别是Maven central仓库在国外链接速度较慢的情况下，Nexus服务器可以通过配置各种网络手段提供便捷的Mirror镜像服务。</p>
+<p>在作为缓存镜像代理的同时，Nexus的还有一个功能就是提供私服仓库，这里延伸解释一下仓库以及相关的概念：</p>
+<h3 id="Maven仓库"><a href="#Maven仓库" class="headerlink" title="Maven仓库"></a>Maven仓库</h3><p>Java的打包方式决定了Java生态圈的繁盛，jar包脚手架式的组装给Java程序带来和无线的可能性。但是光有依赖是远远不够的，程序不可能一成不变，所有的代码都有版本，通过版本不停的迭代更新修复进化。Maven仓库就是为此而设计的，仓库（Repository）中根据Maven程序的设计规则抽象出来的一个概念，其中包含所有jar包以及其依赖信息（对应的版本，名称，组名等等）。</p>
+</div><hr></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2018 By Justilise</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script></body></html>

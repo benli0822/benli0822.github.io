@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Spring Scope到底是什么，有什么作用，如何利用到项目里面"><meta name="keywords" content=""><meta name="author" content="Justilise,undefined"><meta name="copyright" content="Justilise"><title>Spring scope | L'adventure de Monsieur Marron</title><link rel="shortcut icon" href="/my-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#循序渐进"><span class="toc-number">1.</span> <span class="toc-text">循序渐进</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对象的创建"><span class="toc-number">1.0.1.</span> <span class="toc-text">对象的创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象的获取"><span class="toc-number">1.0.2.</span> <span class="toc-text">对象的获取</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Justilise</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">18</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">18</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">8</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container" style="background-image: url(true)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">L'adventure de Monsieur Marron</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="post-info"><div id="post-title">Spring scope</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-03-21</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>Spring框架的出现改变了传统J2EE开发的模式，给程序解耦和程序内对对象的生命周期管理带来了新思路。</p>
+<p>Spring框架的核心理念是IoC，inverse of control，也就是通过spring创建管理容器来管理各个服务对象所需的外部依赖，不再要求服务对象自己控制外部依赖对象的声明周期。 Spring提供了丰富的依赖注入对象的范围</p>
+<p>Spring中可配置的Scope选项</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">singleton</td>
+<td style="text-align:left">默认值，在bean定义声明时不指定scope，spring将会把代建的bean定义为单子</td>
+</tr>
+<tr>
+<td style="text-align:left">prototype</td>
+<td style="text-align:left">原型选项，spring容器会根据现在bean的定义创建任何数量的对象</td>
+</tr>
+<tr>
+<td style="text-align:left">request</td>
+<td style="text-align:left">定义兑现在一次http request中有效，有且只有在web的ApplicationContext中有效</td>
+</tr>
+<tr>
+<td style="text-align:left">session</td>
+<td style="text-align:left">定义兑现在一次http session中有效，有且只有在web的ApplicationContext中有效</td>
+</tr>
+<tr>
+<td style="text-align:left">global-session</td>
+<td style="text-align:left">定义兑现在全局http session中有效，有且只有在web的ApplicationContext中有效</td>
+</tr>
+</tbody>
+</table>
+<p>从上表中可以看出，在scope配置实际上大致分为两类，一类是与http协议相关的，也就是在请求和回话中有效，另外一种则是对对象的数量进行了约束。</p>
+<h1 id="循序渐进"><a href="#循序渐进" class="headerlink" title="循序渐进"></a>循序渐进</h1><p>要想验证scope的作用，可以通过一个简单的小项目。</p>
+<p>这里采用gradle作为项目的构建和依赖管理工具</p>
+<p>需要引入的依赖有 spring-core spring-context spring-beans logback-classic</p>
+<p>需要注意的题外话是，spring-context包默认会依赖于common-logging，但是common-logging的实现机制是在运行时才发现真正使用的日志库，并且log4j，以及jdk自带的logging都是通过这样的机制实现的。这样的好处自然是通过接口的形式，不在编译的时候依赖任何一个第三方日志实现库，但是坏处也是很明显的，如果通过动态查找的方式，通常日志组件在初始化的时候会执行以下几步：</p>
+<ol>
+<li>首先，寻找org.apache.commons.logging.LogFactory 属性配置。</li>
+<li>否则，利用JDK1.3 开始提供的service 发现机制，会扫描classpah 下的META-INF/services/org.apache.commons.logging.LogFactory文件，若找到则装载里面的配置，使用里面的配置。</li>
+<li>否则，从Classpath 里寻找commons-logging.properties ，找到则根据里面的配置加载。</li>
+<li>否则，使用默认的配置：如果能找到Log4j 则默认使用log4j 实现，如果没有则使用JDK14Logger 实现，再没有则使用commons-logging 内部提供的SimpleLog 实现。</li>
+</ol>
+<p>Slf4j的实现方式是相似的，但是理念不同的是slf4j虽然只提供针对不同日志库的简单封装，但是slf4j要求必须在静态编译的时候指定一个log库的实现类，而并非是在执行的时候去动态查找日志实现类。所以slf4j的实现方式又称为静态绑定，这里采用slf4j+logback的方式，实现本例子中的日志。</p>
+<p>要在spring中注入logback的方式是现需要去除spring-context中的common-logging依赖，再引入logback依赖。具体如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;logback-classic&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.1.7&lt;/version&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;spring-context&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">      &lt;exclusions&gt;</span><br><span class="line">          &lt;exclusion&gt;</span><br><span class="line">              &lt;groupId&gt;commons-logging&lt;/groupId&gt;</span><br><span class="line">              &lt;artifactId&gt;commons-logging&lt;/artifactId&gt;</span><br><span class="line">          &lt;/exclusion&gt;</span><br><span class="line">      &lt;/exclusions&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>管理好依赖之后就可以开始具体的代码编写的，首先创建一个简单的pojo，比如PersonPojo</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class PersonPojo implement Serializable &#123;</span><br><span class="line"></span><br><span class="line">  private String name;</span><br><span class="line"></span><br><span class="line">  private int age;</span><br><span class="line"></span><br><span class="line">  /** Getter and settter **/</span><br><span class="line"></span><br><span class="line">  /** toString() **/</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们将通过spring来创建PersonPojo对象，在配置文件夹下建立文件spring-bean.xml</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;justilise&quot; class=&quot;com.spring.PersonPojo&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;age&quot; value=&quot;25&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;name&quot; value=&quot;justilise&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>下面我们可以创建主程序了，这里通过main方法来进行验证</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Application &#123;</span><br><span class="line"></span><br><span class="line">  private staitc Logger logger = LoggerFactory.getLogger(Application.class);</span><br><span class="line"></span><br><span class="line">  public static void main(String[] args) &#123;</span><br><span class="line">    ApplicationContext context = new ClassPathXmlApplicationContext(&quot;conf/spring-bean.xml&quot;);</span><br><span class="line">    // 获取第一个实例</span><br><span class="line">    PersonPojo pojo = context.getBean(&quot;justilise&quot;, PersonPojo.class);</span><br><span class="line">    logger.info(&quot;PersonPojo detail: &#123;&#125;&quot;, new Object[]&#123;pojo&#125;);</span><br><span class="line"></span><br><span class="line">    // 获取第二个实例</span><br><span class="line">    PersonPojo pojo2 = context.getBean(&quot;justilise&quot;, PersonPojo.class);</span><br><span class="line">    logger.info(&quot;Equals validation result is &#123;&#125;&quot;, new Object[]&#123;pojo.equals(pojo2)&#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>验证程序后可以看到控制台输出<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">17.03.21 23:52:56 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/bean.xml]</span><br><span class="line">17.03.21 23:52:56 [main] INFO  c.s.benli.spring.SpringApplication - PersonPojo detail: PersonPojo&#123;age=25, name=&apos;justilise&apos;&#125;</span><br><span class="line">17.03.21 23:52:56 [main] INFO  c.s.benli.spring.SpringApplication - Equals validation result is true</span><br></pre></td></tr></table></figure></p>
+<p>至此单子配置验证成功，那么问题来了，spring是如何实现这样的对象的呢，又是如何管理这些对象的呢？</p>
+<p>这个过程可以分为两步来分析，整体来说，分为两块，对象的创建，对象的获取。</p>
+<h3 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h3><p>我们都知道对象的创建是通过new来新建的，通俗的来讲，显式对象的创建以及其生命周期是取决于创建他的引用的，一旦引用失效，对象便会在下次gc的时候被回收。可以说这样的生命周期是不可控的，针对这个问题，spring容器提出了IoC概念，通过控制bean的生命周期，将业务服务的概念具体到pojo对象中。</p>
+<h3 id="对象的获取"><a href="#对象的获取" class="headerlink" title="对象的获取"></a>对象的获取</h3><p>在这一阶段，Spring容器已经为我们创建好了符合定义的对象，并存储在了线程安全的ConcurrentHashMap中，对外的话，Spring通过jndi类似的目录名称机制允许获取bean实例对象。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Justilise</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://benli0822.github.io/2017/03/21/Spring-scope/">https://benli0822.github.io/2017/03/21/Spring-scope/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2017/03/23/Guava-cache的应用/"><i class="fa fa-chevron-left">  </i><span>Guava cache的应用</span></a></div><div class="next-post pull-right"><a href="/2016/12/18/有关人工智能的瞎想/"><span>有关人工智能的瞎想</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2018 By Justilise</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script></body></html>
