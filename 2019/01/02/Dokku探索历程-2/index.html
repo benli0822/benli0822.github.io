@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Dokku探索历程-2"><meta name="keywords" content=""><meta name="author" content="Justilise"><meta name="copyright" content="Justilise"><title>Dokku探索历程-2 | L'adventure de Monsieur Marron</title><link rel="shortcut icon" href="/my-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: 'ca-pub-9615390256516184',
+  enable_page_level_ads: 'true'
+});
+</script><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '4.2.1'
+} </script><meta name="generator" content="Hexo 4.2.1"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#面向“DevOps”开发"><span class="toc-number">1.</span> <span class="toc-text">面向“DevOps”开发</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码托管"><span class="toc-number">2.</span> <span class="toc-text">代码托管</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker方式"><span class="toc-number">2.1.</span> <span class="toc-text">Docker方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Repo方式"><span class="toc-number">2.2.</span> <span class="toc-text">Git Repo方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#监控"><span class="toc-number">3.</span> <span class="toc-text">监控</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#更改Gogs配置"><span class="toc-number">4.</span> <span class="toc-text">更改Gogs配置</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://api.adorable.io/avatars/285/jinbenli.png"></div><div class="author-info__name text-center">Justilise</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">25</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">23</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">10</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://static.luckybulbul.com/images/05aeb4554a7ba400000115a8b5d516.jpg?x-oss-process=style/blogs_photos)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">L'adventure de Monsieur Marron</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">Dokku探索历程-2</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-02</time><span class="post-meta__separator">|</span><i class="fa fa-comment-o post-meta__icon" aria-hidden="true"></i><a href="/2019/01/02/Dokku%E6%8E%A2%E7%B4%A2%E5%8E%86%E7%A8%8B-2/#disqus_thread"><span class="disqus-comment-count" data-disqus-identifier="2019/01/02/Dokku探索历程-2/"></span></a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>Dokku安装好以后，可以通过安装一些长期跑的应用来支持日常开发工作。</p>
+<p>那么就得好好想一想开发流程上需要哪些东西，想要达成什么样的目的。</p>
+<h1 id="面向“DevOps”开发"><a href="#面向“DevOps”开发" class="headerlink" title="面向“DevOps”开发"></a>面向“DevOps”开发</h1><ul>
+<li>开发项目程序有环境区分:DEV,SIT,PRE,PRD等。</li>
+<li>通过Nginx转发子域名区分各自环境。</li>
+<li>通过CI建立Pipeline机制，持续发布各个环境代码。</li>
+<li>通过Git的标签机制CD各个环境内的程序。</li>
+</ul>
+<p>最终想发到的目的是可以直接通过Git发布项目到子域名基础上的环境，比方说对于一个应用test，总域名假设为app.com。</p>
+<p>那么需要如下配置：</p>
+<table>
+<thead>
+<tr>
+<th>Domain Name</th>
+<th>CNAME</th>
+<th>Point To</th>
+<th>Env</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>test</td>
+<td>test.app.com</td>
+<td>test-prd</td>
+<td>PRD</td>
+</tr>
+<tr>
+<td>test-prd</td>
+<td>test-prd.app.com</td>
+<td>test-prd</td>
+<td>PRD</td>
+</tr>
+<tr>
+<td>test-pre</td>
+<td>test-pre.app.com</td>
+<td>test-pre</td>
+<td>PRE</td>
+</tr>
+<tr>
+<td>test-sit</td>
+<td>test-sit.app.com</td>
+<td>test-sit</td>
+<td>SIT</td>
+</tr>
+<tr>
+<td>test-dev</td>
+<td>test-dev.app.com</td>
+<td>test-dev</td>
+<td>DEV</td>
+</tr>
+</tbody>
+</table>
+<p>最终的test域名是一个alias，直接指向test程序的prd域名。但是各自环境的情况是相互独立的。</p>
+<p>那么想要达到这样的效果，需要以下工具：</p>
+<ol>
+<li>代码托管工具：类似Gitlab，Github。</li>
+<li>配置管理工具SCM。统一管理各个环境的配置文件。</li>
+<li>CI，CD AND CD with Pipeline。</li>
+<li>可以统一管理这些工具的一个UI主控系统。</li>
+</ol>
+<h1 id="代码托管"><a href="#代码托管" class="headerlink" title="代码托管"></a>代码托管</h1><p>暂时就想到了这些，那么一个个开始攻克解决吧，首先从代码托管工具着手。<br>Gitlab，Bitbucket，Github，以及国内的Coding和Gitee都是很不错的选择，收费标准和features各有不同，公网代码托管完全凭个人喜好。<br>这里讲Gogs，这是一个私有部署的仓库，和Github差不多，但是数据全部可以由个人管理。</p>
+<p>Dokku安装Gogs可以有两种主要方式选择，一是通过源码Git直接Push发布安装，二是通过Dockerfile直接安装。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 以下命令默认在root权限下操作</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 告诉Dokku我需要一个新app的空间</span></span><br><span class="line">dokku apps:create gogs</span><br><span class="line"><span class="meta">#</span><span class="bash"> 本地需要准备一个数据文件夹以供作为Docker的mount点</span></span><br><span class="line">mkdir -p /var/lib/dokku/data/storage/gogs</span><br><span class="line"><span class="meta">#</span><span class="bash"> 给mount点文件夹赋予dokku可读写操作的权限</span></span><br><span class="line">chown -R dokku:dokku /var/lib/dokku/data/storage/gogs</span><br><span class="line"><span class="meta">#</span><span class="bash"> 建立docker volume, dokku里面叫storage</span></span><br><span class="line">dokku storage:mount gogs /var/lib/dokku/data/storage/gogs:/data</span><br><span class="line"><span class="meta">#</span><span class="bash"> 映射开放容器内的端口和宿主机进行关联</span></span><br><span class="line">dokku proxy:ports-add gogs http:80:3000</span><br><span class="line">dokku docker-options:add gogs deploy -p 2222:22</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装postgres插件(Optional)</span></span><br><span class="line">dokku plugin:install https://github.com/dokku/dokku-postgres.git postgres</span><br><span class="line"><span class="meta">#</span><span class="bash"> 针对App建立独立的数据仓库，并连接app和db</span></span><br><span class="line">dokku postgres:create gogs-db</span><br><span class="line">dokku postgres:link gogs-db gogs</span><br></pre></td></tr></table></figure>
+<p>执行完link之后会显示出来容器内数据库连接信息，也可以通过以下命令查看对应db的详细信息。需要注意的是dokku会直接往<br>App的容器环境内传入DATABASE_URL为key的环境变量。请注意查阅App的配置是否与之匹配。</p>
+<figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line">⚡ root@host  ~  dokku postgres:info gogs-db</span><br><span class="line">=====&gt; Container Information</span><br><span class="line">       Config dir:          /var/lib/dokku/services/postgres/gogs-db/config</span><br><span class="line">       Data dir:            /var/lib/dokku/services/postgres/gogs-db/data</span><br><span class="line">       Dsn:                 postgres://postgres:&lt;PASSWORD&gt;@dokku-postgres-gogs-db:5432/gogs_db</span><br><span class="line">       Exposed ports:       -</span><br><span class="line">       Id:                  819e7b4b490992b2254e773f0c87e47ea4544a9c5c77dba43c9c8be6a658739a</span><br><span class="line">       Internal ip:         172.17.0.4</span><br><span class="line">       Links:               gogs</span><br><span class="line">       Service root:        /var/lib/dokku/services/postgres/gogs-db</span><br><span class="line">       Status:              running</span><br><span class="line">       Version:             postgres:10.4</span><br><span class="line"></span><br><span class="line"> ⚡ root@iZuf60ajic0vbv18yscctlZ  ~  dokku config gogs</span><br><span class="line">=====&gt; gogs env vars</span><br><span class="line">DATABASE_URL:            postgres://postgres:&lt;PASSWORD&gt;@dokku-postgres-gogs-db:5432/gogs_db</span><br><span class="line">DOKKU_APP_RESTORE:       1</span><br><span class="line">DOKKU_DOCKERFILE_PORTS:  22/tcp 3000/tcp</span><br><span class="line">DOKKU_PROXY_PORT:        80</span><br><span class="line">DOKKU_PROXY_PORT_MAP:    http:2222:22 http:80:3000</span><br></pre></td></tr></table></figure>
+<p>那么Dokku这边的配置已经准备结束了，现在可以拉取Gogs的代码或者Packet进行安装。</p>
+<h2 id="Docker方式"><a href="#Docker方式" class="headerlink" title="Docker方式"></a>Docker方式</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull gogs/gogs:latest</span><br><span class="line">docker tag gogs/gogs:latest dokku/gogs:latest</span><br><span class="line">dokku tags:deploy gogs latest</span><br></pre></td></tr></table></figure>
+<p>发布完成后就可以通过宿主机公网ip访问80端口下运行的程序了，需要注意的是第一个注册的用户将会成为程序的最高admin。</p>
+<h2 id="Git-Repo方式"><a href="#Git-Repo方式" class="headerlink" title="Git Repo方式"></a>Git Repo方式</h2><p>gogs项目目前host在Github上，所以如果想要通过Git方式clone，最好建立自己的密匙通过ssh拉代码到机器上，当然https方式也是可以的，看个人喜好。</p>
+<p>切换到本地工作目录，拉取gogs的源代码。</p>
+<figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$WORK_SPACE</span></span><br><span class="line">git <span class="built_in">clone</span> git@github.com:gogs/gogs.git</span><br><span class="line"><span class="comment"># 添加dokku远程节点</span></span><br><span class="line">git remote add dokku dokku@&lt;DOKKU_DOMAIN&gt;:gogs</span><br></pre></td></tr></table></figure>
+<p>如果需要推送代码到dokku进行部署，首先需要让dokku平台知道推送代码的是谁，比较简单的办法是添加ssh私匙到dokku</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub | ssh root@dokku.me dokku ssh-keys:add KEY_NAME</span><br></pre></td></tr></table></figure>
+<p>接下来就可以推送发布了</p>
+<figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line">git push dokku master</span><br></pre></td></tr></table></figure>
+<h1 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h1><p>通过以下命令可以访问app的日志<br><figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Application 级别的日志</span></span><br><span class="line">dokku logs gogs</span><br><span class="line"><span class="comment"># Database 级别的日志</span></span><br><span class="line">dokku postgres:logs gogs-db -t</span><br></pre></td></tr></table></figure></p>
+<p>基础的gogs安装和实用就差不多这么多，简单总结以上。</p>
+<ul>
+<li>通过Dokku实现DevOps是愿景</li>
+<li>通过Dokku安装Gogs</li>
+<li>通过Dokku监控Gogs</li>
+</ul>
+<p>可以发现有了Dokku平台之后，操作Docker容器变得更加简单，监控工作也很好开展。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker ps --all</span><br></pre></td></tr></table></figure>
+<h1 id="更改Gogs配置"><a href="#更改Gogs配置" class="headerlink" title="更改Gogs配置"></a>更改Gogs配置</h1><p>前文提到了我们已经对Gogs容器内的文件做了映射，并且注册完第一个账户为默认admin账户后，Gogs的Admin Panel中会显示出来当前服务器的所有配置。</p>
+<p>但是Admin Panel里的配置很多通过页面上是无法更改的，比如服务器地址，端口映射等。</p>
+<p>切换到宿主机的目录</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /var/lib/dokku/data/storage/gogs/gogs/conf</span><br><span class="line"> ⚡ root@host  /var/lib/dokku/data/storage/gogs/gogs/conf  pwd</span><br><span class="line">/var/lib/dokku/data/storage/gogs/gogs/conf</span><br><span class="line"> ⚡ root@host  /var/lib/dokku/data/storage/gogs/gogs/conf  ll</span><br><span class="line">total 4.0K</span><br><span class="line">-rw-r--r-- 1 dokku dokku 942 Jan  7 11:44 app.ini</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[server]</span></span><br><span class="line"><span class="attr">DOMAIN</span>           = [填应用子域名或者域名+端口号]</span><br><span class="line"><span class="attr">HTTP_PORT</span>        = <span class="number">3000</span> # 不用改</span><br><span class="line"><span class="attr">ROOT_URL</span>         = http://[填应用子域名或者域名+端口号]/</span><br><span class="line"><span class="attr">DISABLE_SSH</span>      = <span class="literal">false</span></span><br><span class="line"><span class="attr">SSH_PORT</span>         = <span class="number">22</span></span><br><span class="line"><span class="attr">START_SSH_SERVER</span> = <span class="literal">false</span></span><br><span class="line"><span class="attr">OFFLINE_MODE</span>     = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>修改完成后执行命令重启gogs应用加载修改过的配置:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dokku ps:restart gogs</span><br></pre></td></tr></table></figure>
+<p>需要注意的是配置中选择子域名或者域名加端口号的写法完全取决于安装gogs的需要。<br>这时候刷新页面就会发现repo的地址和端口都会根据配置发生变化。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Justilise</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://benli0822.github.io/2019/01/02/Dokku探索历程-2/">https://benli0822.github.io/2019/01/02/Dokku探索历程-2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="https://static.luckybulbul.com/images/alipay.png"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="https://static.luckybulbul.com/images/wechat.png"><div class="post-qr-code__desc">微信打赏</div></div></div><div class="social-share pull-right"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><nav id="pagination"><div class="prev-post pull-left"><a href="/2019/01/04/Dokku%E6%8E%A2%E7%B4%A2%E5%8E%86%E7%A8%8B-3/"><i class="fa fa-chevron-left">  </i><span>Dokku探索历程-3</span></a></div><div class="next-post pull-right"><a href="/2019/01/02/Dokku%E6%8E%A2%E7%B4%A2%E5%8E%86%E7%A8%8B-1/"><span>Dokku探索历程-1</span><i class="fa fa-chevron-right"></i></a></div></nav><div class="post-adv"><a href="https://www.vultr.com/?ref=7643625" target="_blank" rel="noopener"><img src="https://www.vultr.com/media/banners/banner_728x90.png" width="728" height="90"></a></div><div id="disqus_thread"></div><script>var unused = null;
+var disqus_config = function () {
+  this.page.url = 'https://benli0822.github.io/2019/01/02/Dokku%E6%8E%A2%E7%B4%A2%E5%8E%86%E7%A8%8B-2/';
+  this.page.identifier = '2019/01/02/Dokku探索历程-2/';
+  this.page.title = 'Dokku探索历程-2';
+}
+var d = document, s = d.createElement('script');
+s.src = "https://" + 'ladventuredunmarron' +".disqus.com/embed.js";
+s.setAttribute('data-timestamp', '' + +new Date());
+(d.head || d.body).appendChild(s);</script><script id="dsq-count-scr" src="https://ladventuredunmarron.disqus.com/count.js" async></script></div></div><footer class="footer-bg" style="background-image: url(https://static.luckybulbul.com/images/05aeb4554a7ba400000115a8b5d516.jpg?x-oss-process=style/blogs_photos)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2021 By Justilise</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
